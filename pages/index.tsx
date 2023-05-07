@@ -1,7 +1,16 @@
-import React, {useState,} from "react";
-import {MyNavBar} from "doom/components/MyNavBar";
-import {MyPageBanner} from "doom/components/MyPageBanner";
-import {MyFooter} from "doom/components/MyFooter";
+import {useState} from "react";
+
+// Modules
+import {MyNavBar} from "doom/components/modules/MyNavBar";
+import {MyPageBanner} from "doom/components/modules/MyPageBanner";
+import {MyFooter} from "doom/components/modules/MyFooter";
+
+// Elements
+import {EarthquakeButton} from "doom/components/elements/EarthquakeButton";
+
+// Helpers
+import {UpdateEarthquakes} from "doom/utils/earthquakesHelper";
+import {UpdateThreatLevel} from "doom/utils/threatLevelHelper";
 
 export default function Document() {
     const API_ENDPOINT: string = process.env["NEXT_PUBLIC_EARTHQUAKE_API"] || "/api/earthquakes";
@@ -10,25 +19,9 @@ export default function Document() {
 
     const [numEarthquakes, setNumEarthquakes] = useState(0);
 
-    // Fetch earthquake count from API
-    fetchEarthquakeCount();
-
-    function fetchEarthquakeCount() {
-        fetch(path)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                if (data) {
-                    setNumEarthquakes(data.count);
-                } else {
-                    console.log("Error retrieving earthquake count");
-                }
-            }).catch((error) => {
-            console.error(error);
-        });
-    }
-
+    // Force an update of the number of earthquakes
+    UpdateEarthquakes().then((data) => setNumEarthquakes(data.count))
+   // UpdateThreatLevel().then((data) => console.log('hello' + data));
 
     return (
         <main>
@@ -37,15 +30,16 @@ export default function Document() {
             <div className="container mx-auto">
                 {/*<h1 className="text-4xl font-bold mb-4">Doomometer v2</h1>*/}
                 <div id="earthquake-count" className="text-2xl mb-4"></div>
-                <div className={"grid grid-cols-2 gap-x-20"}>
-                    <div className="p-4 bg-gray-200 rounded-xl text-gray-800">
-                        <div className="font-bold text-2xl leading-none">{numEarthquakes}</div>
-                        <div className="mt-2">Earthquakes in the last 24 hours</div>
+                <div className={"grid grid-cols-2 gap-x-20 gap-y-10"}>
+
+                    <div className={"col-span-2"}>
+                        <div className="p-4 bg-gray-200 rounded-xl text-gray-800">
+                            <div className="font-bold text-2xl center">Current status : Amber</div>
+                            <div className="mt-2">Some more words that need to be said</div>
+                        </div>
                     </div>
-                    <div className="p-4 bg-gray-200 rounded-xl text-gray-800">
-                        <div className="font-bold text-2xl leading-none">{numEarthquakes}</div>
-                        <div className="mt-2">Earthquakes in the last 24 hours</div>
-                    </div>
+                    <EarthquakeButton data={numEarthquakes}/>
+                    <EarthquakeButton data={numEarthquakes}/>
                 </div>
             </div>
             <MyFooter/>

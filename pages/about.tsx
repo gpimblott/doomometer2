@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-import {MyNavBar} from "../components/MyNavBar";
-import {MyPageBanner} from "../components/MyPageBanner";
-import {MyFooter} from "../components/MyFooter";
+import {MyNavBar} from "../components/modules/MyNavBar";
+import {MyPageBanner} from "../components/modules/MyPageBanner";
+import {MyFooter} from "../components/modules/MyFooter";
 
 
 export default function Index() {

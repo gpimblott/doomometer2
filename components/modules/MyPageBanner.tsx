@@ -13,7 +13,7 @@ export function MyPageBanner() {
                 Doom-o-meter
             </h2>
             <h3 className="text-2xl mb-8 text-gray-200">
-                Is it as bad as it looks?
+                Doomed or not Doomed - that is the question?
             </h3>
         </div>
     </div>)
