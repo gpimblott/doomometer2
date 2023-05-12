@@ -7,10 +7,12 @@ import {MyFooter} from "doom/components/modules/MyFooter";
 
 // Elements
 import {EarthquakeButton} from "doom/components/elements/EarthquakeButton";
+import {NasaGstButton} from "doom/components/elements/NasaGstButton";
 
 // Helpers
 import {UpdateEarthquakes} from "doom/utils/earthquakesHelper";
-import {UpdateThreatLevel} from "doom/utils/threatLevelHelper";
+import {UpdateGST} from "doom/utils/nasaHelper";
+
 
 export default function Document() {
     const API_ENDPOINT: string = process.env["NEXT_PUBLIC_EARTHQUAKE_API"] || "/api/earthquakes";
@@ -18,10 +20,11 @@ export default function Document() {
     const path = `${HOSTNAME}${API_ENDPOINT}`;
 
     const [numEarthquakes, setNumEarthquakes] = useState(0);
+    const [numGst, setGstData] = useState(0);
 
     // Force an update of the number of earthquakes
-    UpdateEarthquakes().then((data) => setNumEarthquakes(data.count))
-   // UpdateThreatLevel().then((data) => console.log('hello' + data));
+    UpdateEarthquakes().then((data) => setNumEarthquakes(data.count));
+    UpdateGST().then((data) => setGstData(data.count));
 
     return (
         <main>
@@ -39,7 +42,7 @@ export default function Document() {
                         </div>
                     </div>
                     <EarthquakeButton data={numEarthquakes}/>
-                    <EarthquakeButton data={numEarthquakes}/>
+                    <NasaGstButton data={numGst}/>
                 </div>
             </div>
             <MyFooter/>
