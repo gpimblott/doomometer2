@@ -1,10 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
+import {createClient} from "@vercel/kv";
 
-type Data = {
-    count: number
-}
-
-//* This API endpoint is used to get the number of earthquakes that occurred in the last 24 hours.
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const url = 'https://earthquake.usgs.gov/fdsnws/event/1/count';
     const params = {
@@ -12,6 +8,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         starttime: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
         endtime: new Date().toISOString(),
     };
+
+    const kvApi = createClient({
+        url: process.env.KV_REST_API_URL || "",
+        token: process.env.KV_REST_API_TOKEN || "",
+    });
 
     const queryParams = new URLSearchParams(params);
 
@@ -21,9 +22,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             throw new Error('Failed to fetch earthquake count');
         }
         const data = await response.json();
+        const result = await kvApi.hset("stats", {"quakesinday":data.count});
         res.status(200).json(data);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Failed to fetch earthquake count' });
+        //res.status(500).json({ message: 'Failed to fetch earthquake count' });
     }
 }

@@ -10,21 +10,21 @@ import {EarthquakeButton} from "doom/components/elements/EarthquakeButton";
 import {NasaGstButton} from "doom/components/elements/NasaGstButton";
 
 // Helpers
-import {UpdateEarthquakes} from "doom/utils/earthquakesHelper";
-import {UpdateGST} from "doom/utils/nasaHelper";
+import {UpdateStats} from "doom/utils/apiHelper";
 
 
 export default function Document() {
     const API_ENDPOINT: string = process.env["NEXT_PUBLIC_EARTHQUAKE_API"] || "/api/earthquakes";
     const HOSTNAME: string = process.env["NEXT_PUBLIC_API_HOST"] || "http://localhost:3000";
-    const path = `${HOSTNAME}${API_ENDPOINT}`;
 
     const [numEarthquakes, setNumEarthquakes] = useState(0);
     const [numGst, setGstData] = useState(0);
 
-    // Force an update of the number of earthquakes
-    UpdateEarthquakes().then((data) => setNumEarthquakes(data.count));
-    UpdateGST().then((data) => setGstData(data.count));
+    // Update the stats from the Redis cache
+    UpdateStats().then( (data) => {
+        setNumEarthquakes(data.stats.quakesinday);
+        setGstData(data.stats.geostormsinmonth);
+    });
 
     return (
         <main>

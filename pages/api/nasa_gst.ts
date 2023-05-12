@@ -1,4 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
+import {createClient} from "@vercel/kv";
 
 
 //* This API endpoint is used to get the number geomagnetic storms in last X(30) days.
@@ -15,6 +16,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         api_key: process.env.NASA_API_KEY || "DEMO_KEY"
     };
 
+    const kvApi = createClient({
+        url: process.env.KV_REST_API_URL || "",
+        token: process.env.KV_REST_API_TOKEN || "",
+    });
+
 
     const queryParams = new URLSearchParams(params);
     try {
@@ -30,8 +36,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             arraySize += item.allKpIndex.length;
         });
 
+        const result = await kvApi.hset("stats", { "geostormsinmonth":arraySize});
 
-        res.status(200).json({count: arraySize});
+        res.status(200).json( {storms:arraySize} );
     } catch (error) {
         console.error(error);
         res.status(500).json({message: 'Failed to call NASA API'});
