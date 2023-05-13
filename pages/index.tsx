@@ -8,22 +8,23 @@ import {MyFooter} from "doom/components/modules/MyFooter";
 // Elements
 import {EarthquakeButton} from "doom/components/elements/EarthquakeButton";
 import {NasaGstButton} from "doom/components/elements/NasaGstButton";
+import {NasaNeoButton} from "doom/components/elements/NasaNeoButton";
 
 // Helpers
 import {UpdateStats} from "doom/utils/apiHelper";
 
 
 export default function Document() {
-    const API_ENDPOINT: string = process.env["NEXT_PUBLIC_EARTHQUAKE_API"] || "/api/earthquakes";
-    const HOSTNAME: string = process.env["NEXT_PUBLIC_API_HOST"] || "http://localhost:3000";
-
     const [numEarthquakes, setNumEarthquakes] = useState(0);
     const [numGst, setGstData] = useState(0);
+    const [numNeo, setNeoData] = useState(0);
+
 
     // Update the stats from the Redis cache
     UpdateStats().then( (data) => {
         setNumEarthquakes(data.stats.quakesinday);
         setGstData(data.stats.geostormsinmonth);
+        setNeoData(data.stats.neo);
     });
 
     return (
@@ -43,6 +44,7 @@ export default function Document() {
                     </div>
                     <EarthquakeButton data={numEarthquakes}/>
                     <NasaGstButton data={numGst}/>
+                    <NasaNeoButton data={numNeo}/>
                 </div>
             </div>
             <MyFooter/>

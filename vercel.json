@@ -7,6 +7,10 @@
     {
       "path": "/api/nasa_gst",
       "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/nasa_neo",
+      "schedule": "0 5 * * *"
     }
   ]
 }

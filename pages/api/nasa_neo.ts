@@ -4,10 +4,8 @@ import {createClient} from "@vercel/kv";
 
 //* This API endpoint is used to get the number geomagnetic storms in last X(30) days.
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const url = 'https://api.nasa.gov/DONKI/GST';
-    const daysHistory = 30;
-    const startDate = new Date(Date.now() - ((24 * 60 * 60 * 1000) * daysHistory)).toISOString().split('T')[0];
-    const endDate = new Date().toISOString().split('T')[0];
+    const url = 'https://api.nasa.gov/neo/rest/v1/feed';
+    const startDate = new Date().toISOString().split('T')[0];
 
     // KV interface
     const kvApi = createClient({
@@ -18,8 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Specification of the query
     const params = {
         format: 'geojson',
-        startDate: startDate,
-        endDate: endDate,
+        start_date: startDate,
         api_key: process.env.NASA_API_KEY || "DEMO_KEY"
     };
 
@@ -27,20 +24,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         const response = await fetch(`${url}?${queryParams}`);
         if (!response.ok) {
-            throw new Error('Failed to call NASA API');
+            throw new Error('Failed to call NASA Neo');
         }
         const data = await response.json();
 
-        // Calculate how many storms there have been
-        let arraySize = 0;
-        data.forEach((item: any) => {
-            arraySize += item.allKpIndex.length;
-        });
-
         // Store the result in KV
-        const result = await kvApi.hset("stats", { "geostormsinmonth":arraySize});
+       const result = await kvApi.hset("stats", { "neo":data.element_count });
 
-        res.status(200).json( {storms:arraySize} );
+        res.status(200).json( { "count" : data.element_count } );
     } catch (error) {
         console.error(error);
         res.status(500).json({message: 'Failed to call NASA GeoStormAPI'});
