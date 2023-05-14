@@ -1,11 +1,17 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {createClient} from "@vercel/kv";
 
+/**
+ * Get the number of earthquakes in last X days
+ * @param req
+ * @param res
+ */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const numDays = 7;
     const url = 'https://earthquake.usgs.gov/fdsnws/event/1/count';
     const params = {
         format: 'geojson',
-        starttime: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+        starttime: new Date(Date.now() - ((24 * 60 * 60 * 1000)*numDays)).toISOString(),
         endtime: new Date().toISOString(),
     };
 
