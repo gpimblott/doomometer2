@@ -1,24 +1,33 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {createClient} from "@vercel/kv";
+
+/**
+ * Data object returned from USGS
+ */
+interface USGSResponse {
+    count: number
+    maxAllowed: number
+}
+
+interface EarthquakesResponse {
+    count : number,
+    days : number
+}
 
 /**
  * Get the number of earthquakes in last X days
  * @param req
  * @param res
+ * @return JSON object containing number of earthquakes in last 7 days
  */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const numDays = 7;
     const url = 'https://earthquake.usgs.gov/fdsnws/event/1/count';
     const params = {
         format: 'geojson',
-        starttime: new Date(Date.now() - ((24 * 60 * 60 * 1000)*numDays)).toISOString(),
+        starttime: new Date(Date.now() - ((24 * 60 * 60 * 1000) * numDays)).toISOString(),
         endtime: new Date().toISOString(),
     };
 
-    const kvApi = createClient({
-        url: process.env.KV_REST_API_URL || "",
-        token: process.env.KV_REST_API_TOKEN || "",
-    });
 
     const queryParams = new URLSearchParams(params);
 
@@ -28,12 +37,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (!response.ok) {
             throw new Error('Failed to fetch earthquake count');
         }
-        const data = await response.json();
+        const data: USGSResponse = await response.json();
 
-        // Store the data in KV
-        const result = await kvApi.hset("stats", {"quakesinday":data.count});
-        res.status(200).json(data);
+        const quakeResponse : EarthquakesResponse = {
+            count : data.count,
+            days : numDays
+        }
+
+        res.status(200).json(quakeResponse);
     } catch (error) {
-        res.status(500).json({ message: 'Failed to fetch earthquake count' });
+        res.status(500).json({message: 'Failed to fetch earthquake count'});
     }
 }

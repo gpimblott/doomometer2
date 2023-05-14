@@ -1,6 +1,9 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {createClient} from "@vercel/kv";
 
+interface GstResponse {
+    count: number,
+    days: number
+}
 
 //* This API endpoint is used to get the number geomagnetic storms in last X(30) days.
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -8,12 +11,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const daysHistory = 30;
     const startDate = new Date(Date.now() - ((24 * 60 * 60 * 1000) * daysHistory)).toISOString().split('T')[0];
     const endDate = new Date().toISOString().split('T')[0];
-
-    // KV interface
-    const kvApi = createClient({
-        url: process.env.KV_REST_API_URL || "",
-        token: process.env.KV_REST_API_TOKEN || "",
-    });
 
     // Specification of the query
     const params = {
@@ -37,10 +34,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             arraySize += item.allKpIndex.length;
         });
 
-        // Store the result in KV
-        const result = await kvApi.hset("stats", { "geostormsinmonth":arraySize});
+        const gstResp: GstResponse = {
+            count: arraySize,
+            days: daysHistory
+        }
 
-        res.status(200).json( {storms:arraySize} );
+        res.status(200).json(gstResp);
     } catch (error) {
         console.error(error);
         res.status(500).json({message: 'Failed to call NASA GeoStormAPI'});

@@ -8,8 +8,8 @@ export class NasaNeoButton extends Component<{ data: any }> {
         let {data} = this.props;
         return (
             <div className="p-4 bg-gray-200 rounded-xl text-gray-800">
-                <div className="font-bold text-2xl leading-none">{data}</div>
-                <div className="mt-2">Near Earth objects with closest approach in next 7 days</div>
+                <div className="font-bold text-2xl leading-none">{data.count}</div>
+                <div className="mt-2">Near Earth objects with closest approach in next {data.days} days</div>
             </div>
         )
     }

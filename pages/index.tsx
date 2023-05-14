@@ -13,18 +13,22 @@ import {NasaNeoButton} from "doom/components/elements/NasaNeoButton";
 // Helpers
 import {UpdateStats} from "doom/utils/apiHelper";
 
+interface counterResp {
+    count : number,
+    days : number
+}
 
 export default function Document() {
-    const [numEarthquakes, setNumEarthquakes] = useState(0);
-    const [numGst, setGstData] = useState(0);
-    const [numNeo, setNeoData] = useState(0);
+    const [earthquakeStats, setEarthquakeStats ] = useState({});
+    const [geostormStats, setGeostormStats] = useState({});
+    const [neoStats, setNeoStats] = useState({});
 
 
     // Update the stats from the Redis cache
-    UpdateStats().then( (data) => {
-        setNumEarthquakes(data.stats.quakesinday);
-        setGstData(data.stats.geostormsinmonth);
-        setNeoData(data.stats.neo);
+    UpdateStats().then((data) => {
+        setEarthquakeStats(data.stats.earthquakes);
+        setGeostormStats(data.stats.geostorms);
+        setNeoStats(data.stats.neo);
     });
 
     return (
@@ -42,9 +46,9 @@ export default function Document() {
                             <div className="mt-2">Some more words that need to be said</div>
                         </div>
                     </div>
-                    <EarthquakeButton data={numEarthquakes}/>
-                    <NasaGstButton data={numGst}/>
-                    <NasaNeoButton data={numNeo}/>
+                    <EarthquakeButton data={earthquakeStats}/>
+                    <NasaGstButton data={geostormStats}/>
+                    <NasaNeoButton data={neoStats}/>
                 </div>
             </div>
             <MyFooter/>
