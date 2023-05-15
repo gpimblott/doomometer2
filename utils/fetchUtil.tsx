@@ -6,13 +6,6 @@ export function fetchFromApi(path:string) {
     return fetch(fullPath)
         .then((response) => {
             return response.json();
-        })
-        .then((data) => {
-            if (data) {
-                return (data);
-            } else {
-                console.log(`Error retrieving from ${fullPath}`);
-            }
         }).catch((error) => {
             console.error(error);
         });
