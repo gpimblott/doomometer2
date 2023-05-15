@@ -1,10 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 
-interface NeoResponse {
-    count: number
-    days: number
-}
-
 //* This API endpoint is used to get the number near earth objects in the next 7 days.
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const url = 'https://api.nasa.gov/neo/rest/v1/feed';
@@ -25,12 +20,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         const data = await response.json();
 
-        const NeoResp = {
-            count : data.element_count,
-            days : 7
+        const NeoResp: StatsResponse = {
+            count: data.element_count,
+            days: 7
         }
 
-        res.status(200).json( NeoResp );
+        res.status(200).json(NeoResp);
     } catch (error) {
         console.error(error);
         res.status(500).json({message: 'Failed to call NASA GeoStormAPI'});

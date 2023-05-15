@@ -8,10 +8,6 @@ interface USGSResponse {
     maxAllowed: number
 }
 
-interface EarthquakesResponse {
-    count : number,
-    days : number
-}
 
 /**
  * Get the number of earthquakes in last X days
@@ -39,9 +35,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         const data: USGSResponse = await response.json();
 
-        const quakeResponse : EarthquakesResponse = {
-            count : data.count,
-            days : numDays
+        const quakeResponse: StatsResponse = {
+            count: data.count,
+            days: numDays
         }
 
         res.status(200).json(quakeResponse);

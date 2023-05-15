@@ -9,21 +9,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     const quakeResp = await fetch(process.env.NEXT_PUBLIC_API_HOST + "/api/earthquakes");
-    const quakeData = await quakeResp.json();
+    const quakeData: StatsResponse = await quakeResp.json();
 
     const gstResp = await fetch(process.env.NEXT_PUBLIC_API_HOST + "/api/nasa_gst");
-    const gstData = await gstResp.json();
+    const gstData: StatsResponse = await gstResp.json();
 
     const neoResp = await fetch(process.env.NEXT_PUBLIC_API_HOST + "/api/nasa_neo");
-    const neoData = await neoResp.json();
+    const neoData: StatsResponse = await neoResp.json();
 
     // Store the result in KV
     const result = await kvApi.hset("stats",
         {
             "neo": neoData,
             "geostorms": gstData,
-            "earthquakes" : quakeData
-            });
+            "earthquakes": quakeData
+        });
 
     return res.status(200).end();
 }

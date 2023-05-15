@@ -1,10 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 
-interface GstResponse {
-    count: number,
-    days: number
-}
-
 //* This API endpoint is used to get the number geomagnetic storms in last X(30) days.
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const url = 'https://api.nasa.gov/DONKI/GST';
@@ -34,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             arraySize += item.allKpIndex.length;
         });
 
-        const gstResp: GstResponse = {
+        const gstResp: StatsResponse = {
             count: arraySize,
             days: daysHistory
         }
