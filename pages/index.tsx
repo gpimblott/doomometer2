@@ -9,13 +9,14 @@ import {NasaGstButton} from "doom/components/elements/NasaGstButton";
 import {NasaNeoButton} from "doom/components/elements/NasaNeoButton";
 
 // Repository
-import {getStats} from "doom/datastore/KVRepository";
+import KVRepository from "doom/datastore/KVRepository";
 
+const storeClient = new KVRepository();
 /**
  * Populate the stats from the datastore
  */
 export async function getServerSideProps() {
-    const value = await getStats();
+    const value = await storeClient.getStats();
     return {"props": value};
 }
 

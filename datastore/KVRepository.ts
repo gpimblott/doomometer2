@@ -1,19 +1,22 @@
-import {createClient} from '@vercel/kv';
+import {createClient, VercelKV} from '@vercel/kv';
 
-const kvClient = createClient({
-    url: process.env.KV_REST_API_URL || "",
-    token: process.env.KV_REST_API_TOKEN || "",
-});
+class KVRepository {
+    private kvClient: VercelKV;
 
-export function getStats() {
-    return kvClient.hgetall("stats");
+    constructor() {
+        this.kvClient = createClient({
+            url: process.env.KV_REST_API_URL || '',
+            token: process.env.KV_REST_API_TOKEN || '',
+        });
+    }
+
+    async getStats(): Promise<Record<string, any> | null> {
+        return this.kvClient.get('stats');
+    }
+
+    async storeStats(data: AllStats): Promise<void> {
+        await this.kvClient.set('stats', data);
+    }
 }
 
-export async function storeStats( data : AllStats) {
-    // Store the result in KV
-    await kvClient.hset("stats", {
-        "nearEarthObjects": data.nearEarthObjects,
-        "geoStorms": data.geoStorms,
-        "earthquakes": data.earthquakes
-    } );
-}
+export default KVRepository;

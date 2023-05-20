@@ -1,5 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {storeStats} from "doom/datastore/KVRepository";
+import KVRepository from "doom/datastore/KVRepository";
+
+const storeClient = new KVRepository();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -12,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const neoResp = await fetch(process.env.NEXT_PUBLIC_API_HOST + "/api/nasa_neo");
     const neoData: StatsItem = await neoResp.json();
 
-    await storeStats({
+    await storeClient.storeStats({
         "nearEarthObjects": neoData,
         "geoStorms": gstData,
         "earthquakes": quakeData
