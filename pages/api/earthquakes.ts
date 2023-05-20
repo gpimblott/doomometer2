@@ -35,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         const data: USGSResponse = await response.json();
 
-        const quakeResponse: StatsResponse = {
+        const quakeResponse: MetricStatsItem = {
             count: data.count,
             days: numDays
         }

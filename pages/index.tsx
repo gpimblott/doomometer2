@@ -10,14 +10,13 @@ import {NasaNeoButton} from "doom/components/elements/NasaNeoButton";
 
 // Helpers
 import {getStats} from "doom/utils/statistics_summary";
-import {InferGetStaticPropsType} from "next";
 
 export async function getServerSideProps() {
     const value = await getStats()
     return {"props": value};
 }
 
-export default function Index(stats) {
+export default function Index(stats : StatsMetrics) {
     const earthquakes = stats.earthquakes;
     const geostorms = stats.geostorms;
     const nearEarthObjects = stats.neo;

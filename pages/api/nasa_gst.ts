@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             arraySize += item.allKpIndex.length;
         });
 
-        const gstResp: StatsResponse = {
+        const gstResp: MetricStatsItem = {
             count: arraySize,
             days: daysHistory
         }

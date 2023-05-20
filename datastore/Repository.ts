@@ -3,9 +3,9 @@
 
 
 interface storeStructure {
-    "neo": StatsResponse,
-    "geostorms": StatsResponse,
-    "earthquakes": StatsResponse
+    "neo": MetricStatsItem,
+    "geostorms": MetricStatsItem,
+    "earthquakes": MetricStatsItem
 }
 
 interface DataRepositoryInterface<> {

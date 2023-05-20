@@ -9,23 +9,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     const quakeResp = await fetch(process.env.NEXT_PUBLIC_API_HOST + "/api/earthquakes");
-    const quakeData: StatsResponse = await quakeResp.json();
+    const quakeData: MetricStatsItem = await quakeResp.json();
 
     const gstResp = await fetch(process.env.NEXT_PUBLIC_API_HOST + "/api/nasa_gst");
-    const gstData: StatsResponse = await gstResp.json();
+    const gstData: MetricStatsItem = await gstResp.json();
 
     const neoResp = await fetch(process.env.NEXT_PUBLIC_API_HOST + "/api/nasa_neo");
-    const neoData: StatsResponse = await neoResp.json();
+    const neoData: MetricStatsItem = await neoResp.json();
 
-    console.log("writing to Redis");
     // Store the result in KV
-    const result = await kvApi.hset("stats",
+    await kvApi.hset("stats",
         {
             "neo": neoData,
             "geostorms": gstData,
             "earthquakes": quakeData
         });
-    console.log("Written");
 
     return res.status(200).end();
 }
