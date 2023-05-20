@@ -17,6 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const neoResp = await fetch(process.env.NEXT_PUBLIC_API_HOST + "/api/nasa_neo");
     const neoData: StatsResponse = await neoResp.json();
 
+    console.log("writing to Redis");
     // Store the result in KV
     const result = await kvApi.hset("stats",
         {
@@ -24,6 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             "geostorms": gstData,
             "earthquakes": quakeData
         });
+    console.log("Written");
 
     return res.status(200).end();
 }

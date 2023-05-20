@@ -1,5 +1,3 @@
-import {useState} from "react";
-
 // Modules
 import {MyNavBar} from "doom/components/modules/MyNavBar";
 import {MyPageBanner} from "doom/components/modules/MyPageBanner";
@@ -11,25 +9,18 @@ import {NasaGstButton} from "doom/components/elements/NasaGstButton";
 import {NasaNeoButton} from "doom/components/elements/NasaNeoButton";
 
 // Helpers
-import {UpdateStats} from "doom/utils/apiHelper";
+import {getStats} from "doom/utils/statistics_summary";
+import {InferGetStaticPropsType} from "next";
 
-interface counterResp {
-    count : number,
-    days : number
+export async function getServerSideProps() {
+    const value = await getStats()
+    return {"props": value};
 }
 
-export default function Document() {
-    const [earthquakeStats, setEarthquakeStats ] = useState({});
-    const [geostormStats, setGeostormStats] = useState({});
-    const [neoStats, setNeoStats] = useState({});
-
-
-    // Update the stats from the Redis cache
-    UpdateStats().then((data) => {
-        setEarthquakeStats(data.stats.earthquakes);
-        setGeostormStats(data.stats.geostorms);
-        setNeoStats(data.stats.neo);
-    });
+export default function Index(stats) {
+    const earthquakes = stats.earthquakes;
+    const geostorms = stats.geostorms;
+    const nearEarthObjects = stats.neo;
 
     return (
         <main>
@@ -46,14 +37,13 @@ export default function Document() {
                             <div className="mt-2">Some more words that need to be said</div>
                         </div>
                     </div>
-                    <EarthquakeButton data={earthquakeStats}/>
-                    <NasaGstButton data={geostormStats}/>
-                    <NasaNeoButton data={neoStats}/>
+                    <EarthquakeButton data={earthquakes}/>
+                    <NasaGstButton data={geostorms}/>
+                    <NasaNeoButton data={nearEarthObjects}/>
                 </div>
             </div>
             <MyFooter/>
         </main>
     )
-
 
 }
