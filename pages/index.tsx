@@ -9,9 +9,10 @@ import {NasaGstButton} from "doom/components/elements/NasaGstButton";
 import {NasaNeoButton} from "doom/components/elements/NasaNeoButton";
 
 // Repository
-import KVRepository from "doom/datastore/KVRepository";
+import {getRepository} from "doom/datastore/Repository";
 
-const storeClient = new KVRepository();
+//const storeClient = new KVRepository();
+const storeClient = getRepository();
 /**
  * Populate the stats from the datastore
  */

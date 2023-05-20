@@ -1,6 +1,6 @@
 import {createClient, VercelKV} from '@vercel/kv';
 
-class KVRepository {
+class KVRepository implements RepositoryInterface {
     private kvClient: VercelKV;
 
     constructor() {
@@ -10,7 +10,7 @@ class KVRepository {
         });
     }
 
-    async getStats(): Promise<Record<string, any> | null> {
+    async getStats(): Promise<any | null> {
         return this.kvClient.get('stats');
     }
 

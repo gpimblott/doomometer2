@@ -1,7 +1,8 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import KVRepository from "doom/datastore/KVRepository";
 
-const storeClient = new KVRepository();
+import {getRepository} from "doom/datastore/Repository";
+
+const storeClient = getRepository();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
