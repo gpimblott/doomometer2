@@ -1,29 +1,22 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {createClient} from "@vercel/kv";
+import {storeStats} from "doom/datastore/KVRepository";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    const kvApi = createClient({
-        url: process.env.KV_REST_API_URL || "",
-        token: process.env.KV_REST_API_TOKEN || "",
-    });
-
     const quakeResp = await fetch(process.env.NEXT_PUBLIC_API_HOST + "/api/earthquakes");
-    const quakeData: MetricStatsItem = await quakeResp.json();
+    const quakeData: StatsItem = await quakeResp.json();
 
     const gstResp = await fetch(process.env.NEXT_PUBLIC_API_HOST + "/api/nasa_gst");
-    const gstData: MetricStatsItem = await gstResp.json();
+    const gstData: StatsItem = await gstResp.json();
 
     const neoResp = await fetch(process.env.NEXT_PUBLIC_API_HOST + "/api/nasa_neo");
-    const neoData: MetricStatsItem = await neoResp.json();
+    const neoData: StatsItem = await neoResp.json();
 
-    // Store the result in KV
-    await kvApi.hset("stats",
-        {
-            "neo": neoData,
-            "geostorms": gstData,
-            "earthquakes": quakeData
-        });
+    await storeStats({
+        "nearEarthObjects": neoData,
+        "geoStorms": gstData,
+        "earthquakes": quakeData
+    });
 
     return res.status(200).end();
 }

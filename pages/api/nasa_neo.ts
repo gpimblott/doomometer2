@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         const data = await response.json();
 
-        const NeoResp: MetricStatsItem = {
+        const NeoResp: StatsItem = {
             count: data.element_count,
             days: 7
         }

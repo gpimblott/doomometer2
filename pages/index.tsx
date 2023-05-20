@@ -8,18 +8,21 @@ import {EarthquakeButton} from "doom/components/elements/EarthquakeButton";
 import {NasaGstButton} from "doom/components/elements/NasaGstButton";
 import {NasaNeoButton} from "doom/components/elements/NasaNeoButton";
 
-// Helpers
-import {getStats} from "doom/utils/statistics_summary";
+// Repository
+import {getStats} from "doom/datastore/KVRepository";
 
+/**
+ * Populate the stats from the datastore
+ */
 export async function getServerSideProps() {
-    const value = await getStats()
+    const value = await getStats();
     return {"props": value};
 }
 
-export default function Index(stats : StatsMetrics) {
+export default function Index(stats : AllStats) {
     const earthquakes = stats.earthquakes;
-    const geostorms = stats.geostorms;
-    const nearEarthObjects = stats.neo;
+    const geoStorms = stats.geoStorms;
+    const nearEarthObjects = stats.nearEarthObjects;
 
     return (
         <main>
@@ -37,7 +40,7 @@ export default function Index(stats : StatsMetrics) {
                         </div>
                     </div>
                     <EarthquakeButton data={earthquakes}/>
-                    <NasaGstButton data={geostorms}/>
+                    <NasaGstButton data={geoStorms}/>
                     <NasaNeoButton data={nearEarthObjects}/>
                 </div>
             </div>
