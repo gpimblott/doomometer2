@@ -7,7 +7,8 @@
  */
 interface DataRepositoryInterface<> {
     store(data: AllStats): Promise<AllStats>;
-    retrieveStats() : Promise<AllStats>;
+
+    retrieveStats(): Promise<AllStats>;
 }
 
 /**
@@ -17,6 +18,9 @@ interface AllStats {
     "earthquakes": StatsItem;
     "geoStorms": StatsItem;
     "nearEarthObjects": StatsItem;
+    "epidemics": StatsItem;
+    "floods": StatsItem;
+    "cyclones": StatsItem;
 }
 
 /**

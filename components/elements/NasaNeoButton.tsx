@@ -8,7 +8,7 @@ export class NasaNeoButton extends Component<{ data: any }> {
     render() {
         let {data} = this.props;
         return (
-            <BaseCard count={data.count} name="Near Earth Objects" duration={data.days}
+            <BaseCard count={data.count} name="Near Earth Objects" duration={data.days + " days"}
                       message="With closet approach in the next"></BaseCard>
         )
     }
