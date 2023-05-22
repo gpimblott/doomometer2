@@ -1,4 +1,5 @@
 import {Component} from "react";
+import {BaseCard} from "doom/components/elements/BaseCard";
 
 /**
  * Near Earth objects
@@ -7,10 +8,8 @@ export class NasaNeoButton extends Component<{ data: any }> {
     render() {
         let {data} = this.props;
         return (
-            <div className="p-4 bg-gray-200 rounded-xl text-gray-800">
-                <div className="font-bold text-2xl leading-none">{data.count}</div>
-                <div className="mt-2">Near Earth objects with closest approach in next {data.days} days</div>
-            </div>
+            <BaseCard count={data.count} name="Near Earth Objects" duration={data.days}
+                      message="With closet approach in the next"></BaseCard>
         )
     }
 }

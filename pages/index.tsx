@@ -4,12 +4,12 @@ import {MyPageBanner} from "doom/components/modules/MyPageBanner";
 import {MyFooter} from "doom/components/modules/MyFooter";
 
 // Elements
-import {EarthquakeButton} from "doom/components/elements/EarthquakeButton";
 import {NasaGstButton} from "doom/components/elements/NasaGstButton";
 import {NasaNeoButton} from "doom/components/elements/NasaNeoButton";
 
 // Repository
 import {getRepository} from "doom/datastore/Repository";
+import {EarthquakeButton} from "doom/components/elements/EarthquakeButton";
 
 //const storeClient = new KVRepository();
 const storeClient = getRepository();
