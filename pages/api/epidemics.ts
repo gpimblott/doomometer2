@@ -17,7 +17,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const ReliefResp: StatsItem = {
             count: data.totalCount,
-            days: 0
+            days: 0,
+            direction:0
         }
 
         res.status(200).json(ReliefResp);

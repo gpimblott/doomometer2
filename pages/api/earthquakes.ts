@@ -37,7 +37,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const quakeResponse: StatsItem = {
             count: data.count,
-            days: numDays
+            days: numDays,
+            direction:0
         }
 
         res.status(200).json(quakeResponse);

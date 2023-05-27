@@ -31,7 +31,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const gstResp: StatsItem = {
             count: arraySize,
-            days: daysHistory
+            days: daysHistory,
+            direction: 0
         }
 
         res.status(200).json(gstResp);

@@ -22,7 +22,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const NeoResp: StatsItem = {
             count: data.element_count,
-            days: 7
+            days: 7,
+            direction: 0
         }
 
         res.status(200).json(NeoResp);
