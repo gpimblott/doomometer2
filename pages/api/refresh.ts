@@ -24,6 +24,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const cycloneResp = await fetch(process.env.NEXT_PUBLIC_API_HOST + "/api/cyclones");
     const cycloneData: StatsItem = await cycloneResp.json();
 
+    // Get the current data and set the direction
+    const oldState: AllStats = await storeClient.getStats();
+
+    neoData.direction = oldState.nearEarthObjects.count - neoData.count;
+    gstData.direction = oldState.geoStorms.count - gstData.count;
+    quakeData.direction = oldState.earthquakes.count - quakeData.count;
+    epiData.direction = oldState.epidemics.count - epiData.count;
+    floodData.direction = oldState.floods.count - floodData.count;
+    cycloneData.direction = oldState.cyclones.count - cycloneData.count;
+
     await storeClient.storeStats({
         "nearEarthObjects": neoData,
         "geoStorms": gstData,

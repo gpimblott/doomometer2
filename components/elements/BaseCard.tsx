@@ -15,8 +15,8 @@ export class BaseCard extends Component<{
                     <span className={"font-bold text-2xl"}> {this.props.name}</span>
                 </div>
                 <div className={"text-center"}>
-                    <span className="mt-2">{this.props.message} </span><span
-                    className={"font-bold text-2xl text-red-600"}>{this.props.duration}</span>
+                    <span className="">{this.props.message} </span><span
+                    className={"font-bold text-red-600"}>{this.props.duration}</span>
                 </div>
             </div>
         )

@@ -28,5 +28,6 @@ interface AllStats {
  */
 interface StatsItem {
     count: number,
-    days: number
+    days: number,
+    direction: number
 }
