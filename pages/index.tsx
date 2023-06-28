@@ -44,7 +44,7 @@ export default function Index(stats : AllStats) {
                     <div className={"col-span-2"}>
                         <div className="p-4 bg-gray-400 rounded-xl text-gray-800">
                             <div className="font-bold text-2xl center">Current status : Amber</div>
-                            <div className="mt-2">Some more words that need to be said</div>
+                            <div className="mt-2">Not very scientific...</div>
                         </div>
                     </div>
                     <EarthquakeButton data={earthquakes}/>
