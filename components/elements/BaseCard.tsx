@@ -1,4 +1,5 @@
 import {Component} from "react";
+import Image from 'next/image'
 
 export class BaseCard extends Component<{
     count: number,
@@ -9,9 +10,9 @@ export class BaseCard extends Component<{
 }> {
     render() {
         const directionAbs = Math.abs(this.props.direction);
-        let textColour = '';
-        let directionText = '';
-        let image = '';
+        let textColour;
+        let directionText;
+        let image;
 
         if (this.props.direction == 0) {
             textColour = '';
@@ -27,7 +28,7 @@ export class BaseCard extends Component<{
         }
 
         return (
-            <div className="p-4 bg-gray-300 rounded-xl text-gray-800">
+            <div className="p-4 bg-gray-300 rounded text-gray-900">
 
                 <div className={"flex"}>
                     <div className={"grid content-start grid-cols-1 flex-auto w-4/5"}>
@@ -51,9 +52,7 @@ export class BaseCard extends Component<{
                     </div>
 
                     <div className={"flex-auto w-1/5"}>
-                        {image ?
-                            <img src={image} width={"50"} height={"50"}/>
-                            : <div/>}
+                        {image ? <Image src={image} width={"50"} height={"50"} alt={"Change indicator"}/> : <div/>}
                     </div>
                 </div>
             </div>

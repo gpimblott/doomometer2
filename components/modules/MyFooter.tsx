@@ -2,7 +2,7 @@ import React from "react";
 
 export function MyFooter() {
     return (
-        <div className={"pt-4"}>
+        <div className={"pt-10"}>
             <footer className="box-decoration-slice bg-gradient-to-r from-gray-800 to-gray-600">
                 <div className="container pt-4 pb-4">
                     <div className="mb-4 flex justify-center">
@@ -66,7 +66,7 @@ export function MyFooter() {
                 <div className="container pb-4">
                     <div
                         className="flex justify-center">
-                        © 2023 Copyright:
+                        © 2023 Copyright -
                         <a className="text-neutral-800 dark:text-neutral-400"
                            href="https://bitwrangler.uk"> G.Pimblott (aka BitWrangler)</a>
                     </div>
