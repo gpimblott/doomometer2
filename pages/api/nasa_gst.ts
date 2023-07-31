@@ -18,6 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const queryParams = new URLSearchParams(params);
     try {
         const response = await fetch(`${url}?${queryParams}`);
+
         if (!response.ok) {
             throw new Error('Failed to call NASA API');
         }

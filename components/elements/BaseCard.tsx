@@ -15,14 +15,15 @@ export class BaseCard extends Component<{
         let image;
 
         if (this.props.direction == 0) {
-            directionText = 'No change';
+            directionText = 'text-info';
         } else if (this.props.direction > 0) {
             directionText = 'up ' + directionAbs;
-            textColour = "text-secondary"
+            textColour = "text-warning"
             image = '/doomometer-logo2.png';
         } else {
             directionText = 'down ' + directionAbs;
             image = '/earth.png';
+            textColour = "text-success"
         }
 
         return (
