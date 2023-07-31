@@ -6,7 +6,7 @@ export function MyPageBanner() {
         <div className={"shrink-0"}>
             <Image src={"/doomometer-logo2.png"}
                    alt={"Doomometer logo"}
-                   width={150} height={150}/>
+                   width={125} height={125}/>
         </div>
         <div className="flex flex-col justify-center">
             <h2 className="text-4xl font-bold mb-2 text-white">

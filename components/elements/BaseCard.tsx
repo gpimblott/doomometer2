@@ -10,12 +10,13 @@ export class BaseCard extends Component<{
 }> {
     render() {
         const directionAbs = Math.abs(this.props.direction);
-        let textColour = "text-primary";
+        let textColour;
         let directionText;
         let image;
 
         if (this.props.direction == 0) {
-            directionText = 'text-info';
+            directionText = 'No change';
+            textColour = 'text-info';
         } else if (this.props.direction > 0) {
             directionText = 'up ' + directionAbs;
             textColour = "text-warning"
