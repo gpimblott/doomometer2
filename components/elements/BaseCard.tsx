@@ -27,6 +27,8 @@ export class BaseCard extends Component<{
             textColour = "text-success"
         }
 
+        let count = this.props.count | 0;
+
         return (
 
             <div className="stats shadow">
@@ -35,7 +37,7 @@ export class BaseCard extends Component<{
                         {image ? <Image src={image} width={"50"} height={"50"} alt={"Change indicator"}/> :
                             <div/>}        </div>
                     <div className="stat-title">{this.props.name}</div>
-                    <div className={`stat-value ${textColour}`}>{this.props.count}</div>
+                    <div className={`stat-value ${textColour}`}>{count}</div>
                     <div className="stat-desc"> {directionText} {this.props.message} {this.props.duration}</div>
                 </div>
             </div>
