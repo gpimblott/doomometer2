@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export function MyPageBanner() {
     return (<div
-        className="py-6 flex flex-row space-x-4 px-10 box-decoration-slice bg-gradient-to-r from-gray-800 to-gray-600">
+        className="py-6 flex flex-row space-x-4 px-10 bg-gray-800">
         <div className={"shrink-0"}>
             <Image src={"/doomometer-logo2.png"}
                    alt={"Doomometer logo"}

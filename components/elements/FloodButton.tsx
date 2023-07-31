@@ -5,8 +5,8 @@ export class FloodButton extends Component<{ data: any }> {
     render() {
         let {data} = this.props;
         return (
-            <BaseCard count={data.count} name="Floods" duration="Ongoing" direction={data.direction}
-                      message="are "></BaseCard>
+            <BaseCard count={data.count} name="Floods" duration="" direction={data.direction}
+                      message=""></BaseCard>
         )
     }
 }

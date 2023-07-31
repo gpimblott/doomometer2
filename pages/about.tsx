@@ -8,14 +8,18 @@ import {MyFooter} from "../components/modules/MyFooter";
 export default function Index() {
     return (
         <main className={""}>
-            {/*Navigation*/}
-            <MyNavBar/>
             {/*Banner*/}
             <MyPageBanner/>
+            <div className="p-10 text breadcrumbs">
+                <ul>
+                    <li><Link href={"/"}>Home</Link></li>
+                    <li>About</li>
+                </ul>
+            </div>
 
             {/*Main Content*/}
-            <div className={"container mx-auto py-10"}>
-                <h2 className={"text-2xl font-bold py-6"}>About</h2>
+            <div className={"container mx-auto"}>
+                <h2 className={"text-2xl font-bold py-2"}>About</h2>
                 <div>This is V2 of the doomometer. Its a tongue-in-cheek so dont take it too seriously.  There certainly isnt much science behind the metrics.</div>
                 <div>The original collected lots more data but both are a chance for me to try out new technology.
                 </div>
@@ -26,7 +30,8 @@ export default function Index() {
                             <li><Link href={"https://nextjs.org"}>Next.js (Web framework)</Link></li>
                             <li><Link href={"https://reactjs.org"}>React (Web development)</Link></li>
                             <li><Link href={"https://www.typescriptlang.org"}>TypeScript (Web development)</Link></li>
-                            <li><Link href={"https://tailwindcss.com"}>TailwindCSS (Layout)</Link></li>
+                            <li><Link href={"https://tailwindcss.com"}>TailwindCSS (CSS)</Link></li>
+                            <li><Link href={"https://daisyui.com"}>DaisyUI (CSS)</Link></li>
                             <li><Link href={"https://vercel.com"}>Vercel (Hosting)</Link></li>
                             <li><Link href={"https://www.cloudflare.com"}>CloudFlare (Routing)</Link></li>
                         </ul>

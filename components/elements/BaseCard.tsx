@@ -1,5 +1,6 @@
 import {Component} from "react";
 import Image from 'next/image'
+import {text} from "stream/consumers";
 
 export class BaseCard extends Component<{
     count: number,
@@ -10,52 +11,34 @@ export class BaseCard extends Component<{
 }> {
     render() {
         const directionAbs = Math.abs(this.props.direction);
-        let textColour;
+        let textColour = "text-primary";
         let directionText;
         let image;
 
         if (this.props.direction == 0) {
-            textColour = '';
-            directionText = '-';
+            directionText = 'No change';
         } else if (this.props.direction > 0) {
-            textColour = "text-red-600";
             directionText = 'up ' + directionAbs;
+            textColour = "text-secondary"
             image = '/doomometer-logo2.png';
         } else {
-            textColour = "text-green-600";
             directionText = 'down ' + directionAbs;
             image = '/earth.png';
         }
 
         return (
-            <div className="p-4 bg-gray-300 rounded text-gray-900">
 
-                <div className={"flex"}>
-                    <div className={"grid content-start grid-cols-1 flex-auto w-4/5"}>
-                        <div className="bg-blend-color-dodg text-center">
-                            <span className={'text-2xl font-bold'}>
-                                <span className={` ${textColour}`}>
-                                    <span className={`leading-none`}>
-                                        {this.props.count}
-                                    </span>
-                                </span>
-                                <span> ( </span>
-                                {/*<p className={`${arrowDirection}`}></p>*/}
-                                <span> {directionText} ) </span>
-                            <span className={``}> {this.props.name}</span>
-                        </span>
-                        </div>
-                        <div className={"text-center"}>
-                            <span className={`font-bold`}>{this.props.message} </span><span
-                            className={"font-bold text-red-600"}>{this.props.duration}</span>
-                        </div>
-                    </div>
-
-                    <div className={"flex-auto w-1/5"}>
-                        {image ? <Image src={image} width={"50"} height={"50"} alt={"Change indicator"}/> : <div/>}
-                    </div>
+            <div className="stats shadow">
+                <div className="stat">
+                    <div className="stat-figure text-primary">
+                        {image ? <Image src={image} width={"50"} height={"50"} alt={"Change indicator"}/> :
+                            <div/>}        </div>
+                    <div className="stat-title">{this.props.name}</div>
+                    <div className={`stat-value ${textColour}`}>{this.props.count}</div>
+                    <div className="stat-desc"> {directionText} {this.props.message} {this.props.duration}</div>
                 </div>
             </div>
+
         )
     }
 }

@@ -6,7 +6,7 @@ export class NasaGstButton extends Component<{ data: any }> {
         let {data} = this.props;
         return (
             <BaseCard count={data.count} name="Geomagnetic storms" duration={data.days + " days"} direction={data.direction}
-                      message="In the last"></BaseCard>
+                      message="in the last"></BaseCard>
         )
     }
 }
