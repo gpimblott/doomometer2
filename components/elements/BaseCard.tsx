@@ -1,6 +1,5 @@
 import {Component} from "react";
 import Image from 'next/image'
-import {text} from "stream/consumers";
 
 export class BaseCard extends Component<{
     count: number,

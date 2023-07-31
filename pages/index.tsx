@@ -1,5 +1,4 @@
 // Modules
-import {MyNavBar} from "doom/components/modules/MyNavBar";
 import {MyPageBanner} from "doom/components/modules/MyPageBanner";
 import {MyFooter} from "doom/components/modules/MyFooter";
 

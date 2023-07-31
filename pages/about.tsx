@@ -1,6 +1,5 @@
 import Link from 'next/link'
 
-import {MyNavBar} from "../components/modules/MyNavBar";
 import {MyPageBanner} from "../components/modules/MyPageBanner";
 import {MyFooter} from "../components/modules/MyFooter";
 
