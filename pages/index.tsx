@@ -34,11 +34,11 @@ export default function Index(stats : AllStats) {
     return (
         <main>
             <MyPageBanner></MyPageBanner>
-            <div className="hero mx-auto h-[calc(100vh-361px)]">
-                <div className={"hero-content grid grid-cols-2 md:grid-cols-3 gap-x-5 gap-y-5"}>
-                    <div className={" col-span-2 md:col-span-3"}>
-                        <div className="p-4 text-white-75">
-                            <div className="font-bold text-2xl center">Current status : Amber</div>
+            <div className="hero mx-auto min-h-[calc(100vh-342px)]">
+                <div className={"hero-content grid grid-cols-2 md:grid-cols-3 gap-x-5"}>
+                    <div className={"col-span-2 md:col-span-3"}>
+                        <div className="text-white-75">
+                            <div className="font-bold text-xl center">Current status : Amber</div>
                             <div className="mt-2">Not very scientific...</div>
                         </div>
                     </div>

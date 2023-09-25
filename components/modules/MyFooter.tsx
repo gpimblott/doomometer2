@@ -5,7 +5,7 @@ import Link from "next/link";
 export function MyFooter() {
     return (
         <>
-            <div className={"pt-10"}>
+            <div className={"pt-5"}>
                 <footer className="footer bg-gray-800 p-5 text-base-content w-full ">
                     <div>
                         <Image src={"/bitwrangler-logo.png"} width={60} height={60} alt={"BitWrangler Company Logo"}/>
