@@ -6,7 +6,7 @@ export function MyFooter() {
     return (
         <>
             <div className={"pt-10"}>
-                <footer className="footer bg-gray-800  p-10 text-base-content w-full ">
+                <footer className="footer bg-gray-800 p-5 text-base-content w-full ">
                     <div>
                         <Image src={"/bitwrangler-logo.png"} width={60} height={60} alt={"BitWrangler Company Logo"}/>
                         <p><Link href={"https://bitwrangler.uk"}>BitWrangler</Link><br/>Providing reliable tech since
